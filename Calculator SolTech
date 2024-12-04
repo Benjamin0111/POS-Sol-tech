@@ -1,0 +1,78 @@
+import os
+
+def add(a, b):
+    #Voer optelling van twee getalle uit en gee die resultaat terug.
+    return a + b
+
+def subtract(a, b):
+    #Voer aftrekking van twee getalle uit en gee die resultaat terug.
+    return a - b
+
+def multiply(a, b):
+    #Voer vermenigvuldiging van twee getalle uit en gee die resultaat terug.
+    return a * b
+
+def divide(a, b):
+    #Voer deling van twee getalle uit en gee die resultaat terug. Hanteer deling met nul.
+    if b == 0:
+        return "Error: Division by zero is not allowed."
+    return a / b
+
+def clear_screen():
+    #Maak die terminale skerm skoon.
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def calculator():
+    #Laat loop 'n opdraglyn sakrekenaar wat basiese bewerkings uitvoer.
+    exit_flag = False  
+
+    while not exit_flag:
+        print("\n--- Basic Calculator ---")
+        print("Available operations:")
+        print("1. Add (+)")
+        print("2. Subtract (-)")
+        print("3. Multiply (*)")
+        print("4. Divide (/)")
+        print("Type 'clear' to clear the screen or 'exit' to quit.\n")
+
+        # Kry gebruikersinvoer
+        user_input = input("Enter your operation (e.g., 2 + 3): ").strip()
+
+        # Hanteer uitgang en maak opdragte skoon
+        if user_input.lower() == "exit":
+            print("Exiting calculator. Goodbye!")
+            exit_flag = True
+            continue
+        elif user_input.lower() == "clear":
+            clear_screen()
+            continue
+
+        # Ontleed die invoer
+        try:
+            # Verdeel die invoer in operande en operateur
+            if "+" in user_input:
+                operands = user_input.split("+")
+                result = add(float(operands[0]), float(operands[1]))
+            elif "-" in user_input:
+                operands = user_input.split("-")
+                result = subtract(float(operands[0]), float(operands[1]))
+            elif "*" in user_input:
+                operands = user_input.split("*")
+                result = multiply(float(operands[0]), float(operands[1]))
+            elif "/" in user_input:
+                operands = user_input.split("/")
+                result = divide(float(operands[0]), float(operands[1]))
+            else:
+                raise ValueError("Invalid operation.")
+            
+            # Vertoon die resultaat
+            print(f"Result: {result}")
+
+        except ValueError:
+            print("Invalid input! Please enter a valid operation (e.g., 2 + 3).")
+        except Exception as e:
+            print(f"Error: {e}")
+
+# Begin die sakrekenaar
+if __name__ == "__main__":
+    calculator()
