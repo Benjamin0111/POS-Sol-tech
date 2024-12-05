@@ -1,0 +1,71 @@
+# POS program wat produkte stoor, uitvee en die totaal bereken
+# Die program gebruik funksies en lusse om verskeie aksies te hanteer.
+
+def voeg_produk_by(lys):
+    """Voeg 'n nuwe produk en sy prys by die lys."""
+    produk = input("Voer die produknaam in: ")
+    prys = float(input("Voer die produk se prys in (bv. 50.00): R"))
+    lys.append((produk, prys))
+    print(f"{produk} is suksesvol bygevoeg!")
+
+def verwyder_produk(lys):
+    """Verwyder 'n produk vanaf die lys."""
+    if not lys:
+        print("Geen produkte om te verwyder nie!")
+        return
+    
+    # Wys die huidige lys van produkte
+    print("\nProdukte in die lys:")
+    for i, (produk, prys) in enumerate(lys):
+        print(f"{i + 1}. {produk} - R{prys:.2f}")
+    
+    keuse = int(input("\nVoer die nommer in van die produk wat jy wil verwyder: "))
+    if 1 <= keuse <= len(lys):
+        verwyderde_produk = lys.pop(keuse - 1)
+        print(f"{verwyderde_produk[0]} is suksesvol verwyder!")
+    else:
+        print("Ongeldige keuse!")
+
+def wys_lys_en_totaal(lys):
+    """Wys alle produkte en bereken die totaal."""
+    if not lys:
+        print("Geen produkte beskikbaar nie!")
+        return
+    
+    print("\nProdukte en pryse:")
+    totaal = 0
+    for produk, prys in lys:
+        print(f"{produk:<10} R{prys:.2f}")
+        totaal += prys
+    print("-" * 15)
+    print(f"Totaal      R{totaal:.2f}")
+
+def main():
+    """Hoof programlus wat aksies hanteer."""
+    produkte = []  # Lys om produkte en pryse te stoor
+    sentinel = "0"  # Sentinel waarde om die program te verlaat
+    
+    while True:
+        print("\nPOS Menu:")
+        print("1. Voeg produk by")
+        print("2. Verwyder produk")
+        print("3. Wys lys en totaal")
+        print("0. Verlaat")
+        
+        keuse = input("Maak jou keuse: ")
+        
+        if keuse == "1":
+            voeg_produk_by(produkte)
+        elif keuse == "2":
+            verwyder_produk(produkte)
+        elif keuse == "3":
+            wys_lys_en_totaal(produkte)
+        elif keuse == sentinel:
+            print("Dankie dat jy die POS gebruik het!")
+            break
+        else:
+            print("Ongeldige keuse, probeer weer.")
+
+if __name__ == "__main__":
+    # Begin die POS program
+    main()
